@@ -95,6 +95,7 @@ Password: {self.password}''')
 pw = Password()
 pw.info()
 
+
 # disregard this lol
 # this is just another method to do this lol without the random.shuffle() function
 #
