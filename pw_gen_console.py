@@ -1,6 +1,9 @@
 # simple password generator
+# console version in case you dont have PySimpleGUI / want to use this in browsers (colab.google maybe?)
 
 import random
+import sys
+import pyperclip
 
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 symbol = "`~!@#$%^&*()_+-=[]\{}|;':\",./<>?"
@@ -17,9 +20,13 @@ class Password(object):
         self.numbers = 0
 
     def info(self):
-        self.letters = int(input("Number of letters: "))
-        self.symbols = int(input("Number of symbols: "))
-        self.numbers = int(input("Number of numbers: "))
+        try:
+            self.letters = int(input("Number of letters: "))
+            self.symbols = int(input("Number of symbols: "))
+            self.numbers = int(input("Number of numbers: "))
+        except ValueError:
+            print("Values must be a number!")
+            self.info()
 
         if self.letters <= 1:
             print("Letter count must be higher than 1!")
@@ -28,6 +35,10 @@ class Password(object):
             self.create_password()
 
     def create_password(self):
+        self.l_pass = []
+        self.s_pass = []
+        self.n_pass = []
+        self.password = ""
         for i in range(self.letters):
             l = random.randint(0, len(alphabet) - 1)
             ul = random.randint(0, 1)
@@ -51,9 +62,14 @@ class Password(object):
             self.password += pw_list[i]
 
         self.check_password()
-        print(self.password)
+        print(f'''
+Password: {self.password}''')
+        pyperclip.copy(self.password)
+        print('''Password successfully copied to clipboard
+''')
+        self.cont()
 
-    def check_password(self):
+    def check_password(self):  # to ensure that there is at least 1 upper and lower case alphabet in the password
         lowercase = 0
         uppercase = 0
 
@@ -63,13 +79,25 @@ class Password(object):
             elif self.password[i] in alphabet.upper():
                 uppercase += 1
         if lowercase == 0 or uppercase == 0:
-            self.l_pass = []
-            self.s_pass = []
-            self.n_pass = []
-            self.password = ""
             self.create_password()
 
+    def cont(self):
+        contin = input("Would you like to generate another password? (y/n)\n").lower()
+        if contin == "y":
+            self.info()
+        elif contin == "n":
+            print("Alright, goodbye!")
+            sys.exit()
+        else:
+            print("\nPlease enter a valid response! (y/n)")
+            self.cont()
 
+pw = Password()
+pw.info()
+
+# disregard this lol
+# this is just another method to do this lol without the random.shuffle() function
+#
 # counter = 0
 # while counter < letters+symbols+numbers:
 #    choice = random.randint(1, 3)
@@ -91,7 +119,3 @@ class Password(object):
 #            password += n_pass[ln]
 #            n_pass.remove(n_pass[ln])
 #            counter += 1
-
-
-pw = Password()
-pw.info()
