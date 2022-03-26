@@ -4,6 +4,7 @@ Both files allow the user to generate a random password based on the:
 - Number of letters
 - Number of symbols
 - Number of numbers
+
 that the user inputs. All patterns are completely random.
 
 pw_gen_ui.py unique features:
