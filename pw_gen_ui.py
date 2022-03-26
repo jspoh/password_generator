@@ -27,12 +27,9 @@ class Password(object):
         self.numbers = 0
 
     def info(self):
-        try:
-            self.letters = int(values['letters'])
-            self.symbols = int(values['symbols'])
-            self.numbers = int(values['numbers'])
-        except ValueError:
-            sg.popup("no")
+        self.letters = int(values['letters'])
+        self.symbols = int(values['symbols'])
+        self.numbers = int(values['numbers'])
 
     def create_password(self):
         for i in range(self.letters):
