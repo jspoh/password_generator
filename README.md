@@ -17,5 +17,5 @@ pw_gen_console.py unique features
 - Console version, can work on browsers (colab.google?)
 - Automatically copies generated passwords to clipboard
 
-<img src='console.PNG'>
-<img src='ui.PNG'>
+<img src='lib/console.PNG'>
+<img src='lib/ui.PNG'>
